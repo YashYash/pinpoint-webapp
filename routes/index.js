@@ -12,10 +12,7 @@ router.get('/', function(req, res) {
   });
 });
 
-router.get('/example', function(req, res) {
-    console.log('testing');
-  })
-  // Register
+// Register
 router.get('/register', function(req, res) {
   res.render('register', {});
 });
