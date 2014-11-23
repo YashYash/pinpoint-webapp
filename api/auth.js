@@ -8,8 +8,7 @@ var async = require('async');
 var ff = require('ff');
 
 router.post('/register', function(req, res) {
-  if ($scope.username)
-    console.log(req.body);
+  console.log(req.body);
   var account = new Account({
     username: req.body.username,
     password: req.body.password,

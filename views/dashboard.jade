@@ -19,6 +19,8 @@ div(ng-app="dashboardApp" ng-init="env='#{environment}'")
 		//- Load dashboardApp.js
 		script(src="/dashboard/js/dashboardApp.js")
 
+		//- Register
+		script(src="/dashboard/js/controllers/registerController.js")
 		//- Scrapers
 		script(src="/dashboard/js/controllers/scrapersController.js")
 		script(src="/dashboard/js/directives/scrapersDirective.js")
@@ -63,6 +65,7 @@ div(ng-app="dashboardApp" ng-init="env='#{environment}'")
 					input(type='password' ng-model='auth.password' placeholder="Password")
 					button(type="submit" class="newpointer") Login
 					p(ng-if="err === 'true'") {{loginerrmessage}}
+					a#register-button(ng-click="tempRegister()") register
 				div#status-section.hide-status
 					ul#status-panels
 						li#panel-one.lipanels
