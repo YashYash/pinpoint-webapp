@@ -113,7 +113,7 @@ if (!process.env.NODE_ENV) {
   console.log('#### Pinpoint in development ####');
   console.log('Server listening to port ' + 3000);
   console.log('Using dev database - "pinpoint-dev"')
-  appserver.listen(3000);
+  appserver.listen(process.env.PORT || 3000);
   // mongoose.connect('mongodb://pinpoint-founder:kobefederer1qaz@ds049170.mongolab.com:49170/pinpoint');
   mongoose.connect('mongodb://localhost:27017/pinpoint-dev');
   app.use(function(err, req, res, next) {
@@ -128,9 +128,10 @@ if (!process.env.NODE_ENV) {
 if (process.env.NODE_ENV === 'production') {
   globalEnv = 'production';
   console.log('#### Pinpoint in production ####');
-  console.log('Server listening to port ' + 3000);
   console.log('Using production database - "pinpoint-dev"')
-  appserver.listen(3000);
+  var port = process.env.PORT || 3000;
+  appserver.listen(port);
+  console.log('Server listening to port ' + port);
   mongoose.connect('mongodb://pinpoint-founder:kobefederer1qaz@ds049170.mongolab.com:49170/pinpoint');
   // mongoose.connect('mongodb://localhost:27017/pinpoint-dev');
   app.use(function(err, req, res, next) {
