@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var Account = require('../models/account');
 var ff = require('ff');
-var bCrypt = require('bCrypt');
+var bCrypt = require('bcrypt-nodejs');
 
 router.get('/', function(req, res) {
   console.log(globalEnv);
