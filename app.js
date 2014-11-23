@@ -17,8 +17,9 @@ global.appserver = http.createServer(app);
 global.io = require('socket.io').listen(global.appserver, {
   log: true
 });
+var port = process.env.PORT || 3000;
 socket = io.sockets.on('connection', function(socket) {
-  console.log('#### Socket.io Connected. Port ' + 3000);
+  console.log('#### Socket.io Connected. Port ' + port);
   return socket;
 });
 
