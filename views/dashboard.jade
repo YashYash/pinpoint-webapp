@@ -21,6 +21,7 @@ div(ng-app="dashboardApp" ng-init="env='#{environment}'")
 
 		//- Register
 		script(src="/dashboard/js/controllers/registerController.js")
+
 		//- Scrapers
 		script(src="/dashboard/js/controllers/scrapersController.js")
 		script(src="/dashboard/js/directives/scrapersDirective.js")
@@ -37,6 +38,13 @@ div(ng-app="dashboardApp" ng-init="env='#{environment}'")
 		link(rel="stylesheet" href="/dashboard/style/global.css")
 		script(src="/dashboard/js/factories/socketfactory.js")
 		script(src="/dashboard/js/services/authService.js")
+
+		//- Services
+		script(src="/dashboard/js/services/adService.js")
+		script(src="/dashboard/js/services/categoryService.js")
+		script(src="/dashboard/js/services/zoneService.js")
+		script(src="/dashboard/js/services/urlService.js")
+		script(src="/dashboard/js/services/scrapeService.js")
 
 		//- Moment
 		script(src='/dashboard/js/vendor/moment.min.js')

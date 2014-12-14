@@ -45,11 +45,40 @@
   font-size: 24px;
   padding: 13px 0px;
 }
-#ads-filter-panel .filter-scrollers {
+#ads-filter-panel .list-headings {
+  text-align: center;
+  color: white;
+  font-weight: 100;
+  background: rgba(238, 238, 238, 0.3);
+  padding: 10px 0px;
+  border-top: 1px solid rgba(238, 238, 238, 0.4);
+  border-bottom: 1px solid rgba(238, 238, 238, 0.4);
+}
+.side-bar-panel {
   width: 100%;
-  height: 29%;
-  background: red;
-  margin-bottom: 1%;
+  height: 20%;
+  overflow-y: scroll;
+  text-align: center;
+  color: white;
+  font-weight: 100;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.2);
+  margin-bottom: 0px;
+  background: rgba(238, 238, 238, 0.1);
+}
+.side-bar-panel li {
+  padding: 8px 0px;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.2);
+  font-size: 12px;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  cursor: pointer;
+}
+.side-bar-panel li:hover {
+  background: rgba(238, 238, 238, 0.3);
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
 }
 /*Ads*/
 
@@ -111,10 +140,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  backgorund: red;
-  -webkit-filter: blur(15px);
+  opacity: 0.5;
+  /*  -webkit-filter: blur(15px);
   opacity: 0.6;
   filter: blur(15px);
+*/
 }
 #ads ul.tiles li #image img {
   width: 100%;

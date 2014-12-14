@@ -1,8 +1,14 @@
 dashboardApp.controller('adsController', function(
-  $scope, 
-  $location, 
-  socket, 
-  $http) {
+  $scope,
+  $location,
+  socket,
+  $http,
+  adService,
+  categoryService,
+  urlService,
+  scrapeService,
+  zoneService) {
+
   'use strict';
   console.log('#### Ads Controller');
 
@@ -13,46 +19,74 @@ dashboardApp.controller('adsController', function(
   $scope.limit = 25;
 
   $scope.getZones = function() {
-    $http.get('/api/zones').success(function(zones) {
-      $scope.zones = zones;
-      $scope.currzone = zones[0];
+    var zones = zoneService.zones();
+    zones.then(function(resolve) {
+      console.log('#### Resolved');
+      console.log(resolve);
+      $scope.zones = resolve.data;
+      $scope.currzone = $scope.zones[0];
       $scope.getCategories();
-    }).error(function(data, status, headers, config) {
-      console.log('there was an error in getZones');
-      console.log('status: ' + status);
-      console.log('headers: ' + headers);
-      console.log('config: ' + config);
-    });
-  };
+    }, function(reject) {
+      console.log('#### Rejected');
+      console.log(reject);
+    })
+  }
 
   $scope.getCategories = function() {
-    $http.get('/api/categories').success(function(categories) {
-      $scope.categories = categories;
-      $scope.currcat = categories[0];
+    var categories = categoryService.categories();
+    categories.then(function(resolve) {
+      console.log('#### Resolved');
+      console.log(resolve);
+      $scope.categories = resolve.data;
+      $scope.currcat = $scope.categories[0];
+      $scope.getUrls($scope.currzone, $scope.currcat);
+    }, function(reject) {
+      console.log('#### Rejected');
+      console.log(reject);
+    })
+  };
+
+  $scope.getUrls = function(zone, cat) {
+    $scope.currzone = zone;
+    $scope.currcat = cat;
+    var urls = urlService.urls(zone._id, cat._id);
+    urls.then(function(resolve) {
+      console.log('#### Resolved');
+      console.log(resolve);
+      $scope.urls = resolve.data;
       $scope.getAds($scope.currzone, $scope.currcat);
-    }).error(function(data, status, headers, config) {
-      console.log('there was an error in getCategories line 20');
-      console.log('status: ' + status);
-      console.log('headers: ' + headers);
-      console.log('config: ' + config);
-    });
+    }, function(reject) {
+      console.log('#### Rejected');
+      console.log(reject);
+    })
   };
 
   $scope.getAds = function(zone, category) {
     $scope.currzone = zone;
     $scope.currcat = category;
+    var ads = adService.ads(zone, category);
+    ads.then(function(resolve) {
+      console.log('#### Resolved');
+      console.log(resolve);
+      $scope.ads = resolve.data;
+    }, function(reject) {
+      console.log('#### Rejected');
+      console.log(reject);
+    })
     console.log($scope.currzone, $scope.currcat);
-    $http.get('/api/ads/' + zone.shortname + '/' + category._id).success(function(ads) {
-      console.log(ads);
-      $scope.ads = ads;
-    }).error(function(data, status, headers, config) {
-      console.log('there was an error');
-      console.log('status: ' + status);
-      console.log('headers: ' + headers);
-      console.log('config: ' + config);
-    });
   };
 
+  $scope.allAds = function() {
+    var ads = adService.all();
+    ads.then(function(resolve) {
+      console.log('#### Resolved');
+      console.log(resolve);
+      $scope.ads = resolve.data;
+    }, function(reject) {
+      console.log('#### Rejected');
+      console.log(reject);
+    })
+  }
   socket.on('update scope', function(data) {
     console.log('Socket message: ');
     console.log(data);

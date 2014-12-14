@@ -6,14 +6,14 @@
         <li class="icon-dropdown newpointer" id="listview" ng-click="viewMode('list')"></li>
       </ul>
     </div>
-    <ul class='filter-scrollers' id="zones" ng-repeat="zone in zones">
-      <li>{{zone.name}}</li>
+    <p class="list-headings" ng-click="allAds()">Show All</p>
+    <p class="list-headings">Zones</p>
+    <ul class="side-bar-panel zones">
+      <li ng-repeat="zone in zones" ng-click="getUrls(zone, currcat)">{{zone.name}}</li>
     </ul>
-    <ul class='filter-scrollers' id="categories" ng-repeat="category in categories">
-      <li>{{category.name}}</li>
-    </ul>
-    <ul class='filter-scrollers' id="urls">
-      <li>{{url.}}</li>
+    <p class="list-headings">Categories</p>
+    <ul class="side-bar-panel categories">
+      <li ng-repeat="category in categories" ng-click="getUrls(currzone, category)">{{category.name}}</li>
     </ul>
   </div>
   <div id="ads">

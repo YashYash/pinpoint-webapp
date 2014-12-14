@@ -1,8 +1,13 @@
 dashboardApp.controller('scrapersController', function(
-  $scope, 
-  $location, 
-  socket, 
-  $http) {
+  $scope,
+  $location,
+  socket,
+  $http,
+  adService,
+  categoryService,
+  zoneService,
+  urlService,
+  scrapeService) {
 
   'use strict';
 
@@ -13,7 +18,7 @@ dashboardApp.controller('scrapersController', function(
   $scope.onload();
 
   console.log('#### Scraper Controller');
-  
+
   $scope.zone = [];
   $scope.currzone = '';
   $scope.currcategory = '';
@@ -23,48 +28,51 @@ dashboardApp.controller('scrapersController', function(
   $scope.code = '';
 
   $scope.getZones = function() {
-    $http.get('/api/zones').success(function(zones) {
-      $scope.zones = zones;
-      $scope.currzone = zones[0];
+    var zones = zoneService.zones();
+    zones.then(function(resolve) {
+      console.log('#### Resolved');
+      console.log(resolve);
+      $scope.zones = resolve.data;
+      $scope.currzone = $scope.zones[0];
       $scope.getCategories();
-    }).error(function(data, status, headers, config) {
-      console.log('there was an error in getZones line 12');
-      console.log('status: ' + status);
-      console.log('headers: ' + headers);
-      console.log('config: ' + config);
-    });
-  };
+    }, function(reject) {
+      console.log('#### Rejected');
+      console.log(reject);
+    })
+  }
 
   $scope.getCategories = function() {
-    $http.get('/api/categories').success(function(categories) {
-      $scope.categories = categories;
-      $scope.currcategory = categories[0];
+    var categories = categoryService.categories();
+    categories.then(function(resolve) {
+      console.log('#### Resolved');
+      console.log(resolve);
+      $scope.categories = resolve.data;
+      $scope.currcategory = $scope.categories[0];
       $scope.getUrls($scope.currzone, $scope.currcategory);
-    }).error(function(data, status, headers, config) {
-      console.log('there was an error in getCategories line 20');
-      console.log('status: ' + status);
-      console.log('headers: ' + headers);
-      console.log('config: ' + config);
-    });
+    }, function(reject) {
+      console.log('#### Rejected');
+      console.log(reject);
+    })
   };
 
   $scope.getUrls = function(zone, cat) {
     $scope.currzone = zone;
     $scope.currcategory = cat;
-    $http.get('/api/urls/' + zone._id + '/' + cat._id).success(function(urls) {
-      $scope.urls = urls;
+    var urls = urlService.urls(zone._id, cat._id);
+    urls.then(function(resolve) {
+      console.log('#### Resolved');
+      console.log(resolve);
+      $scope.urls = resolve.data;
       if ($scope.route === '' && $scope.code === '') {
-        $scope.route = urls[0].route;
-        $scope.code = urls[0].code;
+        $scope.route = $scope.urls[0].route;
+        $scope.code = $scope.urls[0].code;
       }
-      $scope.check();
-    }).error(function(data, status, headers, config) {
-      console.log('there was an error in getUrls line 28');
-      console.log('status: ' + status);
-      console.log('headers: ' + headers);
-      console.log('config: ' + config);
-    });
+    }, function(reject) {
+      console.log('#### Rejected');
+      console.log(reject);
+    })
   };
+
 
   $scope.check = function() {
     console.log($scope.zones);
@@ -114,17 +122,16 @@ dashboardApp.controller('scrapersController', function(
       if ($scope.list.length > index) {
         console.log($scope.list.length);
         console.log($scope.index);
-        console.log('here');
         var data = $scope.list[$scope.index];
-        $http.get('/scrape/kijiji/' + data.route + '/' + data.zone + '/' + data.code + '/1').success(function(response, status, headers, config) {
-          console.log(response);
-          $scope.scrapeCats.push(response);
-        }).error(function(data, status, headers, config) {
-          console.log('there was an error in the postcall');
-          console.log('status: ' + status);
-          console.log('headers: ' + headers);
-          console.log('config: ' + config);
-        });
+        var scrape = scrapeService.scrape(data.route, data.zone, data.code);
+        scrape.then(function(resolve) {
+          console.log('#### Resolved');
+          console.log(resolve);
+          $scope.scrapeCats.push(resolve.data);
+        }, function(reject) {
+          console.log('#### Rejected');
+          console.log(reject);
+        })
       } else {
         console.log('done looping through this shit');
         $scope.index = 0;
