@@ -1,7 +1,8 @@
+console.log('######### MADE IT HERE IN PRODUCTION ###########');
 settings = require('./settings');
-require('newrelic');
+// require('newrelic');
 var express = module.exports.express = require('express');
-var logfmt = require('logfmt');
+// var logfmt = require('logfmt');
 var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
