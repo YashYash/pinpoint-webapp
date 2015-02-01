@@ -1,5 +1,5 @@
 console.log('######### MADE IT HERE IN PRODUCTION ###########');
-settings = require('./settings');
+// settings = require('./settings');
 // require('newrelic');
 var express = module.exports.express = require('express');
 // var logfmt = require('logfmt');
