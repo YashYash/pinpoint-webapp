@@ -18,9 +18,9 @@ var fs = require('fs');
 
 console.log('######## one one ##########');
 
-var redis = require('redis');
+// var redis = require('redis');
 var app = module.exports.app = express();
-var compressor = require('node-minify');
+// var compressor = require('node-minify');
 global.appserver = http.createServer(app);
 global.io = require('socket.io').listen(global.appserver, {
   log: true
