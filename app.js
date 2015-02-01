@@ -17,7 +17,7 @@ console.log(process.env.NODE_ENV);
 
 var express = require('express');
 var app = express();
-server = http.createServer(app);
+var server = http.createServer(app);
 var io = require('socket.io').listen(server, {
   log: true
 });
