@@ -1,4 +1,9 @@
 console.log('######### MADE IT HERE IN PRODUCTION ###########');
+console.log('############# WHERE WE ARE #############');
+console.log(process.env.NODE_ENV);
+var port = process.env.PORT || 3000;
+console.log('######## THIS IS THE CURRENT PORT ##########');
+console.log(port);
 // settings = require('./settings');
 // require('newrelic');
 var express = module.exports.express = require('express');
@@ -11,6 +16,8 @@ var bodyParser = require('body-parser');
 var http = require('http');
 var fs = require('fs');
 
+console.log('######## one one ##########');
+
 var redis = require('redis');
 var app = module.exports.app = express();
 var compressor = require('node-minify');
@@ -18,16 +25,12 @@ global.appserver = http.createServer(app);
 global.io = require('socket.io').listen(global.appserver, {
   log: true
 });
-console.log('############# WHERE WE ARE #############');
-console.log(process.env.NODE_ENV);
-var port = process.env.PORT || 3000;
-console.log('######## THIS IS THE CURRENT PORT ##########');
-console.log(port);
 socket = io.sockets.on('connection', function(socket) {
   console.log('#### Socket.io Connected. Port ' + port);
   return socket;
 });
 
+console.log('######## two two ##########');
 var mongoose = require('mongoose');
 var Account = require('./models/account');
 var passport = require('passport');
@@ -53,6 +56,8 @@ var kijijiPost = require('./api/kijiji');
 var environment = require('./api/environment');
 
 var router = express.Router();
+
+console.log('######## three three ##########');
 
 mongoose.set('debug', true);
 // app.use(logfmt.requestLogger());
