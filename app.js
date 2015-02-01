@@ -19,16 +19,6 @@ var fs = require('fs');
 console.log('######## one one ##########');
 
 // var redis = require('redis');
-var app = module.exports.app = express();
-// var compressor = require('node-minify');
-global.appserver = http.createServer(app);
-global.io = require('socket.io').listen(global.appserver, {
-  log: true
-});
-socket = io.sockets.on('connection', function(socket) {
-  console.log('#### Socket.io Connected. Port ' + port);
-  return socket;
-});
 
 console.log('######## two two ##########');
 var mongoose = require('mongoose');
@@ -58,6 +48,18 @@ var environment = require('./api/environment');
 var router = express.Router();
 
 console.log('######## three three ##########');
+
+var app = module.exports.app = express();
+// var compressor = require('node-minify');
+global.appserver = http.createServer(app);
+global.io = require('socket.io').listen(global.appserver, {
+  log: true
+});
+socket = io.sockets.on('connection', function(socket) {
+  console.log('#### Socket.io Connected. Port ' + port);
+  return socket;
+});
+
 
 mongoose.set('debug', true);
 // app.use(logfmt.requestLogger());
