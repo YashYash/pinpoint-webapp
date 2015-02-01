@@ -6,7 +6,7 @@ console.log('######## THIS IS THE CURRENT PORT ##########');
 console.log(port);
 // settings = require('./settings');
 // require('newrelic');
-var express = module.exports.express = require('express');
+var express = require('express');
 // var logfmt = require('logfmt');
 var path = require('path');
 var favicon = require('static-favicon');
