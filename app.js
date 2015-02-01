@@ -29,8 +29,6 @@ var session = require('express-session');
 
 var routes = require('./routes/index');
 var dashboard = require('./routes/dashboard');
-var kijiji = require('./scrapers/kijiji');
-var set = require('./scrapers/set');
 
 var ads = require('./api/ads');
 var url = require('./api/url');
@@ -60,6 +58,8 @@ socket = io.sockets.on('connection', function(socket) {
   return socket;
 });
 
+var kijiji = require('./scrapers/kijiji');
+var set = require('./scrapers/set');
 
 mongoose.set('debug', true);
 // app.use(logfmt.requestLogger());
