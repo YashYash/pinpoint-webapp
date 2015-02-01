@@ -7,9 +7,10 @@ var ff = require('ff');
 router.get('/', function(req, res) {
   console.log('#### Getting current environment');
   var data = {
-    environment: globalEnv
+    environment: globalEnv,
+    port: globalPort
   }
   res.send(data);
-})
+});
 
 module.exports = router;
