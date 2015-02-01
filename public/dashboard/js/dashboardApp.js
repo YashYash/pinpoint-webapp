@@ -21,7 +21,7 @@ dashboardApp.factory('socket', function($scope) {
     var socket = io.connect('http://localhost:3000');
     return socket;
   } else {
-    var socket = io.connect('http://pinpoint-web.herokuapp.com');
+    var socket = io.connect('https://desolate-meadow-6374.herokuapp.com');
     return socket;
   }
 });
